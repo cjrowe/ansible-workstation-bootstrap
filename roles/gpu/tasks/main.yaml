@@ -1,0 +1,19 @@
+- name: Configure Nvidia GPU Drivers & Utilities
+  when: gpu == "nvidia"
+  become: True
+  ansible.builtin.package:
+    name:
+      - nvidia
+      - nvidia-settings
+    state: present
+
+
+- name: Configure AMD GPU Drivers & Utilities
+  when: gpu == "amd"
+  ansible.builtin.debug:
+    msg: "AMD GPU was specified - no additional configuration required"
+
+- name: Configure Intel GPU Drivers & Utilities
+  when: gpu == "intel"
+  ansible.builtin.debug:
+    msg: "Intel GPU was specified - no additional configuration required"
