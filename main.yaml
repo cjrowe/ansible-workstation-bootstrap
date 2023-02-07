@@ -3,3 +3,5 @@
   roles:
     - common
     - gpu
+    - shell
+    - window-manager
