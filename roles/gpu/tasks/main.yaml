@@ -17,3 +17,8 @@
   when: gpu == "intel"
   ansible.builtin.debug:
     msg: "Intel GPU was specified - no additional configuration required"
+
+- name: No GPU type specified
+  when: gpu == "none"
+  ansible.builtin.debug:
+    msg: "No GPU was specified - use 'amd', 'nvidia' or 'intel' to configure appropriate drivers"
