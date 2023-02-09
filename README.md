@@ -22,14 +22,17 @@ ansible-pull https://github.com/cjrowe/ansible-workstation-bootstrap main.yaml -
 
 ## Roles
 
-| Name     | Purpose                                         |
-|----------|-------------------------------------------------|
-| `common` | Install common components, programmes and files |
-| `gpu`    | Install GPU-specific drivers and utilities      |
+| Name             | Purpose                                              |
+|------------------|------------------------------------------------------|
+| `common`         | Install common components, programmes and files      |
+| `gpu`            | Install GPU-specific drivers and utilities           |
+| `shell`          | Install and configure shell, including dotfiles etc. |
+| `window-manager` | Install and configure WM for system                  |
 
 ## Variables
 
-| Name  | Role  | Description                        | Valid/Expected Values    |
-|-------|-------|------------------------------------|--------------------------|
-| `gpu` | `gpu` | Type of GPU present in workstation | `nvidia`, `amd`, `intel` |
+| Name            | Role    | Description                                                   | Valid/Expected Values        |
+|-----------------|---------|---------------------------------------------------------------|------------------------------|
+| `gpu`           | `gpu`   | Type of GPU present in workstation                            | `nvidia`, `amd`, `intel`     |
+| `dotfiles_repo` | `shell` | URL of Git repository containing (`chezmoi` managed) dotfiles | HTTPS link to Git repository |
 
