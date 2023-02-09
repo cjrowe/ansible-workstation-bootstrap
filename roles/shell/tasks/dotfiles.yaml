@@ -1,0 +1,9 @@
+---
+- name: Install chezmoi dotfiles manager
+  become: True
+  ansible.builtin.package:
+    name: chezmoi
+    state: latest
+
+- name: Initialise chezmoi configuration
+  ansible.builtin.shell: chezmoi init --apply {{ dotfiles_repo }}
