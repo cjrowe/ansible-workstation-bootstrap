@@ -2,3 +2,12 @@
 common_packages:
   - htop
   - neofetch
+  - bat
+  - exa
+  - tldr
+  - thefuck
+  - fzf
+  - jq
+  - procs
+  - duf
+  - glances

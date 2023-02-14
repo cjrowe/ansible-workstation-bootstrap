@@ -5,5 +5,11 @@
     name: chezmoi
     state: latest
 
+- name: Check whether chezmoi has already been configured
+  stat:
+    path: ~/.local/share/chezmoi
+  register: chezmoi_dir
+
 - name: Initialise chezmoi configuration
+  when: not chezmoi_dir.stat.exists
   ansible.builtin.shell: chezmoi init --apply {{ dotfiles_repo }}
