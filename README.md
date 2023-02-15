@@ -31,8 +31,12 @@ ansible-pull https://github.com/cjrowe/ansible-workstation-bootstrap main.yaml -
 
 ## Variables
 
-| Name            | Role    | Description                                                   | Valid/Expected Values        |
-|-----------------|---------|---------------------------------------------------------------|------------------------------|
-| `gpu`           | `gpu`   | Type of GPU present in workstation                            | `nvidia`, `amd`, `intel`     |
-| `dotfiles_repo` | `shell` | URL of Git repository containing (`chezmoi` managed) dotfiles | HTTPS link to Git repository |
-
+| Name                    | Role             | Description                                                   | Valid/Expected Values        |
+|-------------------------|------------------|---------------------------------------------------------------|------------------------------|
+| `user_name`             |                  | Local Unix user name to configure                             |                              |
+| `gpu`                   | `gpu`            | Type of GPU present in workstation                            | `nvidia`, `amd`, `intel`     |
+| `dotfiles_repo`         | `shell`          | URL of Git repository containing (`chezmoi` managed) dotfiles | HTTPS link to Git repository |
+| `dwm_custom_repo`       | `window-manager` | URL of Git repository containing custom spin of dwm           | HTTPS link to Git repository |
+| `dmenu_custom_repo`     | `window-manager` | URL of Git repository containing custom spin of dmenu         | HTTPS link to Git repository |
+| `st_custom_repo`        | `window-manager` | URL of Git repository containing custom spin of st            | HTTPS link to Git repository |
+| `dwmblocks_custom_repo` | `window-manager` | URL of Git repository containing custom spin of dwmblock      | HTTPS link to Git repository |

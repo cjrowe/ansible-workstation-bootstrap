@@ -1,0 +1,5 @@
+---
+dwm_custom_repo: https://github.com/cjrowe/dwm.git
+dmenu_custom_repo: https://github.com/cjrowe/dmenu.git
+st_custom_repo: https://github.com/cjrowe/st.git
+dwmblocks_custom_repo: https://github.com/cjrowe/dwmblocks.git
