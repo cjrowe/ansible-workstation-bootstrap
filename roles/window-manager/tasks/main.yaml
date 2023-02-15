@@ -41,7 +41,13 @@
     chdir: /home/{{ user_name }}/.local/share/suckless/st
     target: install
   
-- name: Checkout Suckless dwmblocks code
+- name: Checkout dwmblocks code
   ansible.builtin.git:
     repo: "{{ dwmblocks_custom_repo }}"
     dest: /home/{{ user_name }}/.local/share/suckless/dwmblocks
+
+- name: Build dwmblocks
+  become: True
+  make:
+    chdir: /home/{{ user_name }}/.local/share/suckless/dwmblocks
+    target: install
