@@ -1,6 +1,6 @@
 ---
 - name: Pre-requisites for yay AUR Helper
-  when: ansible_facts['os_family'] == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Artix Linux'
   become: True
   ansible.builtin.package:
     name: "{{ item }}"
