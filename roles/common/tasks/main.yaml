@@ -9,6 +9,18 @@
     - base-devel
     - git
 
+- name: Clone yay source
+  when: ansible_facts['os_family'] == 'Artix Linux'
+  ansible.builtin.git:
+    repo: https://aur.archlinux.org/yay.git
+    dest: /home/{{ user_name }}/{{ source_clone_dir }}/yay
+
+- name: Build yay package from source
+  become: True
+  ansible.builtin.shell: makepkg -si
+  args:
+    chdir: /home/{{ user_name }}/{{ source_clone_dir }}/yay
+
 - name: Install common libraries & utilities
   become: True
   ansible.builtin.package:

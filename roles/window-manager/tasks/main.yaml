@@ -11,43 +11,43 @@
 - name: Checkout Suckless dwm code
   ansible.builtin.git:
     repo: "{{ dwm_custom_repo }}"
-    dest: /home/{{ user_name }}/.local/share/suckless/dwm
+    dest: /home/{{ user_name }}/{{ source_clone_dir }}/suckless/dwm
 
 - name: Build dwm
   become: True
   community.general.make:
-    chdir: /home/{{ user_name }}/.local/share/suckless/dwm
+    chdir: /home/{{ user_name }}/{{ source_clone_dir }}/suckless/dwm
     target: install
 
 - name: Checkout Suckless dmenu code
   ansible.builtin.git:
     repo: "{{ dmenu_custom_repo }}"
-    dest: /home/{{ user_name }}/.local/share/suckless/dmenu
+    dest: /home/{{ user_name }}/{{ source_clone_dir }}/suckless/dmenu
 
 - name: Build dmenu
   become: True
   make:
-    chdir: /home/{{ user_name }}/.local/share/suckless/dmenu
+    chdir: /home/{{ user_name }}/{{ source_clone_dir }}/suckless/dmenu
     target: install
 
 - name: Checkout Suckless st code
   ansible.builtin.git:
     repo: "{{ st_custom_repo }}"
-    dest: /home/{{ user_name }}/.local/share/suckless/st
+    dest: /home/{{ user_name }}/{{ source_clone_dir }}/suckless/st
 
 - name: Build st
   become: True
   make:
-    chdir: /home/{{ user_name }}/.local/share/suckless/st
+    chdir: /home/{{ user_name }}/{{ source_clone_dir }}/suckless/st
     target: install
   
 - name: Checkout dwmblocks code
   ansible.builtin.git:
     repo: "{{ dwmblocks_custom_repo }}"
-    dest: /home/{{ user_name }}/.local/share/suckless/dwmblocks
+    dest: /home/{{ user_name }}/{{ source_clone_dir }}/suckless/dwmblocks
 
 - name: Build dwmblocks
   become: True
   make:
-    chdir: /home/{{ user_name }}/.local/share/suckless/dwmblocks
+    chdir: /home/{{ user_name }}/{{ source_clone_dir }}/suckless/dwmblocks
     target: install
