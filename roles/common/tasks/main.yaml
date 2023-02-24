@@ -8,6 +8,7 @@
   with_items: 
     - base-devel
     - git
+    - go
 
 - name: Clone yay source
   when: ansible_facts['os_family'] == 'Artix Linux'
