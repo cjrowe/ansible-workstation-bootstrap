@@ -10,6 +10,22 @@
     - git
     - go
 
+- name: Create user for building from AUR repos
+  when: ansible_facts['os_family'] == 'Artix Linux'
+  become: True
+  user: 
+    name: "{{ aur_builder_user_name }}"
+
+- name: Allow AUR Builder user to sudo
+  when: ansible_facts['os_family'] == 'Artix Linux'
+  become: True
+  lineinfile:
+     path: /etc/sudoers.d/aur_builder-allow-to-sudo-pacman
+     state: present
+     line: "aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+     validate: /usr/sbin/visudo -cf %s
+     create: yes
+
 - name: Clone yay source
   when: ansible_facts['os_family'] == 'Artix Linux'
   ansible.builtin.git:
@@ -18,6 +34,7 @@
 
 - name: Build yay package from source
   when: ansible_facts['os_family'] == 'Artix Linux'
+  become_user: "{{ aur_builder_user_name }}"
   ansible.builtin.shell: makepkg -si
   args:
     chdir: /home/{{ user_name }}/{{ source_clone_dir }}/yay
