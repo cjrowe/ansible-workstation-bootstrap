@@ -34,9 +34,7 @@
 
 - name: Build yay package from source
   when: ansible_facts['os_family'] == 'Artix Linux'
-  become: True
-  become_user: "{{ aur_builder_user_name }}"
-  ansible.builtin.shell: makepkg -si
+  ansible.builtin.shell: makepkg -i
   args:
     chdir: /home/{{ user_name }}/{{ source_clone_dir }}/yay
 
