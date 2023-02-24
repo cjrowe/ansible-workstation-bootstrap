@@ -17,7 +17,7 @@ ansible-playbook main.yaml -K --extra-vars ...
 or use `ansible-pull` to fetch and run it:
 
 ```shell
-ansible-pull https://github.com/cjrowe/ansible-workstation-bootstrap main.yaml -K --extra-vars ...
+ansible-pull -U https://github.com/cjrowe/ansible-workstation-bootstrap -K --extra-vars gpu=... main.yaml
 ```
 
 ## Roles
