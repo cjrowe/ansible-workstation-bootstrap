@@ -44,10 +44,6 @@
     patterns: 'yay-*.pkg.tar.zst'
   register: yay_packages
 
-- name: List yay Packages
-  ansible.builtin.debug:
-    msg: "Files: {{ yay_packages.files | map(attribute='path') | sort(reverse=True) | first }}"
-
 - name: Install yay package
   when: ansible_facts['os_family'] == 'Artix Linux'
   become: True
@@ -55,6 +51,15 @@
     name: "{{ yay_packages.files | map(attribute='path') | sort(reverse=True) | first }}"
     state: present
 
+- name: Install AUR packages
+  community.general.pacman:
+    name: "{{ item }}"
+    state: latest
+    executable: yay
+  with_items: 
+    - bat
+    - exa
+    
 - name: Install common libraries & utilities
   become: True
   ansible.builtin.package:
