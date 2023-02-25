@@ -1,6 +1,6 @@
 ---
 - name: Pre-requisites for yay AUR Helper
-  when: ansible_facts['os_family'] == 'Artix Linux' || ansible_facts['os_family'] == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Artix Linux' | ansible_facts['os_family'] == 'Archlinux'
   become: True
   ansible.builtin.package:
     name: "{{ item }}"
@@ -11,13 +11,13 @@
     - go
 
 - name: Create user for building from AUR repos
-  when: ansible_facts['os_family'] == 'Artix Linux' || ansible_facts['os_family'] == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Artix Linux' | ansible_facts['os_family'] == 'Archlinux'
   become: True
   user: 
     name: "{{ aur_builder_user_name }}"
 
 - name: Allow AUR Builder user to sudo
-  when: ansible_facts['os_family'] == 'Artix Linux' || ansible_facts['os_family'] == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Artix Linux' | ansible_facts['os_family'] == 'Archlinux'
   become: True
   lineinfile:
      path: /etc/sudoers.d/aur_builder-allow-to-sudo-pacman
@@ -27,13 +27,13 @@
      create: yes
 
 - name: Clone yay source
-  when: ansible_facts['os_family'] == 'Artix Linux' || ansible_facts['os_family'] == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Artix Linux' | ansible_facts['os_family'] == 'Archlinux'
   ansible.builtin.git:
     repo: https://aur.archlinux.org/yay.git
     dest: /home/{{ user_name }}/{{ source_clone_dir }}/yay
 
 - name: Build yay package from source
-  when: ansible_facts['os_family'] == 'Artix Linux' || ansible_facts['os_family'] == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Artix Linux' | ansible_facts['os_family'] == 'Archlinux'
   ansible.builtin.shell: makepkg -fs
   args:
     chdir: /home/{{ user_name }}/{{ source_clone_dir }}/yay
@@ -45,21 +45,21 @@
   register: yay_packages
 
 - name: Install yay package
-  when: ansible_facts['os_family'] == 'Artix Linux' || ansible_facts['os_family'] == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Artix Linux' | ansible_facts['os_family'] == 'Archlinux'
   become: True
   community.general.pacman:
     name: "{{ yay_packages.files | map(attribute='path') | sort(reverse=True) | first }}"
     state: present
 
 - name: Copy list of mirrors for Universe repository
-  when: ansible_facts['os_family'] == 'Artix Linux' || ansible_facts['os_family'] == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Artix Linux' | ansible_facts['os_family'] == 'Archlinux'
   become: True
   copy:
     src: mirrorlist-universe
     dest: /etc/pacman.d/
 
 - name: Enable Universe repository
-  when: ansible_facts['os_family'] == 'Artix Linux' || ansible_facts['os_family'] == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Artix Linux' | ansible_facts['os_family'] == 'Archlinux'
   become: True
   ansible.builtin.blockinfile:
     path: /etc/pacman.conf
@@ -68,7 +68,7 @@
       Include = /etc/pacman.d/mirrorlist-universe
 
 - name: Pre-requisites for Arch repository support
-  when: ansible_facts['os_family'] == 'Artix Linux' || ansible_facts['os_family'] == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Artix Linux' | ansible_facts['os_family'] == 'Archlinux'
   become: True
   ansible.builtin.package:
     name: "{{ item }}"
@@ -77,7 +77,7 @@
     - artix-archlinux-support
 
 - name: Download Arch mirrorlist
-  when: ansible_facts['os_family'] == 'Artix Linux' || ansible_facts['os_family'] == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Artix Linux' | ansible_facts['os_family'] == 'Archlinux'
   become: True
   ansible.builtin.get_url:
     url: https://github.com/archlinux/svntogit-packages/raw/packages/pacman-mirrorlist/trunk/mirrorlist
@@ -87,7 +87,7 @@
     mode: 'u=rw,g=r,o=r'
 
 - name: Enable Arch community and extras repositories
-  when: ansible_facts['os_family'] == 'Artix Linux' || ansible_facts['os_family'] == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Artix Linux' | ansible_facts['os_family'] == 'Archlinux'
   become: True
   ansible.builtin.blockinfile:
     path: /etc/pacman.conf
@@ -99,7 +99,7 @@
       Include = /etc/pacman.d/mirrorlist-arch
 
 - name: Update package repositories
-  when: ansible_facts['os_family'] == 'Artix Linux' || ansible_facts['os_family'] == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Artix Linux' | ansible_facts['os_family'] == 'Archlinux'
   become: True
   community.general.pacman:
     update_cache: True
