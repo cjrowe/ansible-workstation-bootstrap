@@ -107,6 +107,12 @@
       [community]
       Include = /etc/pacman.d/mirrorlist-arch
 
+- name: Update package repositories
+  when: ansible_facts['os_family'] == 'Artix Linux'
+  become: True
+  community.general.pacman:
+    update_cache: True
+
 - name: Install common libraries & utilities
   become: True
   ansible.builtin.package:
