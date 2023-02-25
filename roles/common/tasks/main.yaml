@@ -52,7 +52,7 @@
   when: ansible_facts['os_family'] == 'Artix Linux'
   become: True
   community.general.pacman:
-    name: /home/{{ user_name }}/{{ source_clone_dir }}/yay/yay-*.pkg.tar.zst
+    name: "{{ yay_packages.files | map(attribute='path') | sort(reverse=True) | first }}"
     state: present
 
 - name: Install common libraries & utilities
