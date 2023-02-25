@@ -38,6 +38,16 @@
   args:
     chdir: /home/{{ user_name }}/{{ source_clone_dir }}/yay
 
+- name: Find built yay binary package
+  ansible.builtin.find:
+    paths: /home/{{ user_name }}/{{ source_clone_dir }}/yay
+    patterns: 'yay-*.pkg.tar.zst'
+  register: yay_packages
+
+- name: List yay Packages
+  ansible.builtin.debug:
+    msg: "Packages: {{ yay_packages }}; Sorted Packages: {{ yay_packages | sort(reverse=True) }}"
+
 - name: Install yay package
   when: ansible_facts['os_family'] == 'Artix Linux'
   become: True
