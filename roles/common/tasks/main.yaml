@@ -57,15 +57,7 @@
   copy:
     src: mirrorlist-universe
     dest: /etc/pacman.d/
-
-- name: Enable Universe repository
-  when: ansible_facts['os_family'] == 'Artix Linux' or ansible_facts['os_family'] == 'Archlinux'
-  become: True
-  ansible.builtin.blockinfile:
-    path: /etc/pacman.conf
-    block: |
-      [universe]
-      Include = /etc/pacman.d/mirrorlist-universe
+      
 
 - name: Pre-requisites for Arch repository support
   when: ansible_facts['os_family'] == 'Artix Linux' or ansible_facts['os_family'] == 'Archlinux'
@@ -86,12 +78,15 @@
     group: root
     mode: 'u=rw,g=r,o=r'
 
-- name: Enable Arch community and extras repositories
+- name: Enable additional repositories
   when: ansible_facts['os_family'] == 'Artix Linux' or ansible_facts['os_family'] == 'Archlinux'
   become: True
   ansible.builtin.blockinfile:
     path: /etc/pacman.conf
     block: |
+      [universe]
+      Include = /etc/pacman.d/mirrorlist-universe
+
       [extra]
       Include = /etc/pacman.d/mirrorlist-arch
 
