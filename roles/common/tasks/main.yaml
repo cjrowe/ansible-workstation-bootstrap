@@ -68,15 +68,12 @@
   with_items: 
     - artix-archlinux-support
 
-- name: Download Arch mirrorlist
+- name: Copy list of mirrors for Arch repositories
   when: ansible_facts['os_family'] == 'Artix Linux' or ansible_facts['os_family'] == 'Archlinux'
   become: True
-  ansible.builtin.get_url:
-    url: https://github.com/archlinux/svntogit-packages/raw/packages/pacman-mirrorlist/trunk/mirrorlist
-    dest: /etc/pacman.d/mirrorlist-arch
-    owner: root
-    group: root
-    mode: 'u=rw,g=r,o=r'
+  copy:
+    src: mirrorlist-arch
+    dest: /etc/pacman.d/
 
 - name: Enable additional repositories
   when: ansible_facts['os_family'] == 'Artix Linux' or ansible_facts['os_family'] == 'Archlinux'
