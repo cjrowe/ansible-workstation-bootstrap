@@ -7,4 +7,7 @@
     - role: gantsign.oh-my-zsh
       users:
         - username: "{{ user_name  }}"
+          oh_my_zsh:
+            update_mode: auto
+            update_frequency: 10
     - window-manager
