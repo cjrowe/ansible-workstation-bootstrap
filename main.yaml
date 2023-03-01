@@ -4,4 +4,7 @@
     - common
     - gpu
     - shell
+    - role: gantsign.oh-my-zsh
+      users:
+        - username: "{{ user_name  }}"
     - window-manager
